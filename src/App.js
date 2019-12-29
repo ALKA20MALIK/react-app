@@ -1,10 +1,22 @@
 import React, { useState, Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import styled  from 'styled-components'
+//import Radium,{StyleRoot} from 'radium';
 import Person from "./Person/Person";
-import person from './Person/Person';
 
+const StyledButton=styled.button`
+    background-color: ${ props=>props.alt ? 'red':'green'};
+    color:white
+    font: inherit;
+    border:  1px solid blue;
+    padding: 8px;
+    cursor: pointer;
+    
+    &:hover {
+      backgroundColor: lightgreen;
+      color: black;
+  `;
 class App extends Component{
 
   state={
@@ -51,14 +63,9 @@ class App extends Component{
     persons.splice(index,1)
     this.setState({persons: persons})
   }
+
   render(){
-    const style={
-      backgroundColor: 'green',
-      font: 'inherit',
-      border:  '1px solid blue',
-      padding: '8px',
-      cursor:'pointer',
-    };
+    
     let persons=null
     let classes=[]
 
@@ -82,16 +89,21 @@ class App extends Component{
                     
                 })}
               </div>)
-        style.backgroundColor='red'
+        // style.backgroundColor='red'
+        // style[':hover']={
+        //   backgroundColor:'salmon',
+        //   color:'yellow'
+        // }
     }
     return (
-      <div className="App">
+        <div className="App">
           <h1 >My First App</h1>
           <p className={classes.join(' ')}>this is dynamic class</p>
-          <button style={style} 
-          onClick={this.togglePersonsHandler}>toggle person</button>
+          <StyledButton alt={this.state.showPersons} onClick={this.togglePersonsHandler}>
+            toggle person 
+          </StyledButton>
           {persons}
-      </div>
+        </div>
     )
   }
 
